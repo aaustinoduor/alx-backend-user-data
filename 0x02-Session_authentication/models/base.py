@@ -118,8 +118,8 @@ class Base():
         def _search(obj):
             if len(attributes) == 0:
                 return True
-            for k, v in attributes.items():
-                if (getattr(obj, k) != v):
+            for t, r in attributes.items():
+                if (getattr(obj, t) != r):
                     return False
             return True
 
