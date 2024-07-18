@@ -14,12 +14,13 @@ class Auth:
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
-         '''registers new user
+         '''Registers new user
             Args:
                 - email: user's email
                 - password: user's password
             Return:
-                - User instance created'''
+                - User instance created
+         '''
         db = self._db
         try:
             user = db.find_user_by(email=email)
@@ -30,12 +31,13 @@ class Auth:
             raise ValueError(f"User {email} already exists")
 
     def valid_login(self, email: str, password: str) -> bool:
-         '''checks if password is valid
+         '''Checks if password is valid
             Args:
                 - email: user's email
                 - password: user's password
             Return:
-                - True if credentials are valid, otherwise False'''
+                - True if credentials are valid, otherwise False
+         '''
         db = self._db
         try:
             user = db.find_user_by(email=email)
@@ -46,11 +48,12 @@ class Auth:
         return True
 
     def create_session(self, email: str) -> str:
-         '''creates session for user
+         '''Creates session for user
             Args:
                 - email: user's email
             Return:
-                - created session_id'''
+                - created session_id
+         '''
         db = self._db
         try:
             user = db.find_user_by(email=email)
@@ -61,11 +64,12 @@ class Auth:
         return session_id
 
     def get_user_from_session_id(self, session_id: str) -> User:
-         '''gets user based on their session id
+         '''Gets user based on their session id
             Args:
                 - session_id: user's session_id
             Return:
-                - User if found else None'''
+                - User if found else None
+         '''
         if not session_id:
             return None
         db = self._db
@@ -81,11 +85,12 @@ class Auth:
         db.update_user(user_id, session_id=None)
 
     def get_reset_password_token(self, email: str) -> str:
-         '''generates reset password token for valid user
+         '''Generates reset password token for valid user
             Args:
                 - email: user's email
             Return:
-                - reset password token'''
+                - reset password token
+         '''
         db = self._db
         try:
             user = db.find_user_by(email=email)
@@ -101,7 +106,8 @@ class Auth:
                 - reset_toke: user's reset token
                 - password: new password
             Return:
-                - None'''
+                - None
+         '''
         db = self._db
         try:
             user = db.find_user_by(reset_token=reset_token)
@@ -116,7 +122,8 @@ def _hash_password(password: str) -> bytes:
         Args:
             - password: user password
         Return:
-            - hashed password'''
+            - hashed password
+     '''
     e_pwd = password.encode()
     return bcrypt.hashpw(e_pwd, bcrypt.gensalt())
 
@@ -124,5 +131,6 @@ def _hash_password(password: str) -> bytes:
 def _generate_uuid() -> str:
      '''generates unique ids
         Return
-            - UUID generated'''
+            - UUID generated
+     '''
     return str(uuid4())

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-''' Module for E2E Integration test'''
+'''Module for E2E Integration test'''
 from requests import get, put, post, delete
 
 
@@ -31,7 +31,8 @@ def log_in_wrong_password(email: str, password: str) -> None:
 def log_in(email: str, password: str) -> str:
      '''Login test
         Return:
-            - session_id'''
+            - session_id
+     '''
     request = post("http://0.0.0.0:5000/sessions",
                    data={'email': email, "password": password})
     response = request.json()
@@ -71,9 +72,10 @@ def log_out(session_id: str) -> None:
 
 
 def reset_password_token(email: str) -> str:
-     '''reset token test
+     '''Reset token test
         Return:
-            - reset token'''
+            - reset token
+     '''
     request = post("http://0.0.0.0:5000/reset_password",
                    data={"email": email})
     response = request.json()

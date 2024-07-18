@@ -13,7 +13,8 @@ AUTH = Auth()
 def home() -> str:
      '''home endpoint
         Return:
-            - Logout message JSON represented'''
+            - Logout message JSON represented
+     '''
     return jsonify({"message": "Bienvenue"})
 
 
@@ -25,7 +26,8 @@ def login():
             - password
         Return:
             - user email and login message JSON represented
-            - 401 if credential are invalid'''
+            - 401 if credential are invalid
+     '''
     email = request.form.get("email")
     password = request.form.get("password")
     if not AUTH.valid_login(email, password):
@@ -40,7 +42,8 @@ def login():
 def logout():
      '''logout endpoint
         Return:
-            - redirect to home page'''
+            - redirect to home page
+     '''
     session_id = request.cookies.get("session_id")
     user = AUTH.get_user_from_session_id(session_id)
     if not user:
@@ -54,7 +57,8 @@ def users():
      '''new user signup endpoint
         Form fields:
             - email
-            - password'''
+            - password
+     '''
     email = request.form.get("email")
     password = request.form.get("password")
     try:
@@ -69,7 +73,8 @@ def profile() -> str:
      '''user profile endpoint
         Return:
             - user email JSON represented
-            - 403 if session_id is not linked to any user'''
+            - 403 if session_id is not linked to any user
+     '''
     session_id = request.cookies.get("session_id")
     user = AUTH.get_user_from_session_id(session_id)
     if not user:
@@ -84,7 +89,8 @@ def get_reset_password_token() -> str:
             - email
         Return:
             - email and reset token JSON represented
-            - 403 if email is not associated with any user'''
+            - 403 if email is not associated with any user
+     '''
     email = request.form.get("email")
     try:
         reset_token = AUTH.get_reset_password_token(email)
@@ -103,7 +109,8 @@ def update_password():
             - new_password
         Return:
             - user email and password update message JSON represented
-            - 403 if reset token is not provided or not linked to any user'''
+            - 403 if reset token is not provided or not linked to any user
+     '''
     email = request.form.get("email")
     new_password = request.form.get("new_password")
     reset_token = request.form.get("reset_token")

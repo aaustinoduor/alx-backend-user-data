@@ -26,13 +26,14 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        '''creates new User instance and
+        ''' creates new User instance and
             saves them to database.
             Args:
                 - email
                 - hashed_password
             Return:
-                - new User object'''
+                - new User object
+        '''
         session = self._session
         try:
             new_user = User(email=email, hashed_password=hashed_password)
@@ -49,7 +50,8 @@ class DB:
                 - Dictionary of attributes to use as search
                   parameters
             Return:
-                - User object'''
+                - User object
+         '''
 
         attrs, vals = [], []
         for attr, val in kwargs.items():
@@ -66,11 +68,12 @@ class DB:
         return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
-         '''searches for user instance using given id parameter
+         '''Searches for user instance using given id parameter
             Args:
                 - user_id: user's id
             Return:
-                - User instance found'''
+                - User instance found
+         '''
         user = self.find_user_by(id=user_id)
         session = self._session
         for attr, val in kwargs.items():
